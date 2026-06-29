@@ -5,6 +5,7 @@ import FilterSidebar from '../components/properties/FilterSidebar';
 import PropertiesHeader from '../components/properties/PropertiesHeader';
 import PropertiesGrid from '../components/properties/PropertiesGrid';
 import LoadingState from '../components/common/LoadingState';
+import PropertyCardSkeleton from '../components/properties/PropertyCardSkeleton';
 import { propertiesAPI, userAPI } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import { useSEO } from '../hooks/useSEO';
@@ -224,8 +225,14 @@ const PropertiesPage: React.FC = () => {
           />
 
 
-          {/* Loading State */}
-          {loading && <LoadingState message="Loading properties..." />}
+          {/* Loading State — skeleton grid */}
+          {loading && (
+            <div className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <PropertyCardSkeleton key={i} />
+              ))}
+            </div>
+          )}
 
           {/* Error State */}
           {error && !loading && (
