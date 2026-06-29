@@ -4,7 +4,7 @@ const ContactInfoCards: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Visit Our Office Card */}
-      <div className="bg-white border border-[#E6E0DA] rounded-xl p-6">
+      <div className="bg-white border border-[#E6E0DA] rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 bg-[rgba(212,117,91,0.1)] rounded-full flex items-center justify-center flex-shrink-0">
             <span className="material-icons text-2xl text-[#2563EB]">
@@ -36,7 +36,7 @@ const ContactInfoCards: React.FC = () => {
       </div>
 
       {/* Call or Email Us Card */}
-      <div className="bg-white border border-[#E6E0DA] rounded-xl p-6">
+      <div className="bg-white border border-[#E6E0DA] rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 bg-[rgba(212,117,91,0.1)] rounded-full flex items-center justify-center flex-shrink-0">
             <span className="material-icons text-2xl text-[#2563EB]">
@@ -72,7 +72,7 @@ const ContactInfoCards: React.FC = () => {
       </div>
 
       {/* Business Hours Card */}
-      <div className="bg-white border border-[#E6E0DA] rounded-xl p-6">
+      <div className="bg-white border border-[#E6E0DA] rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 bg-[rgba(212,117,91,0.1)] rounded-full flex items-center justify-center flex-shrink-0">
             <span className="material-icons text-2xl text-[#2563EB]">
