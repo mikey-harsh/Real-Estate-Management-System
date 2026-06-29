@@ -13,6 +13,7 @@ interface PropertyCardProps {
   sqft: number;
   badge?: string;
   tags?: string[];
+  isNew?: boolean;
   isFavorited?: boolean;
   onFavoriteToggle?: (propertyId: string, newValue: boolean) => Promise<void>;
 }
@@ -28,6 +29,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   sqft,
   badge,
   tags = [],
+  isNew = false,
   isFavorited = false,
   onFavoriteToggle,
 }) => {
@@ -75,17 +77,24 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent h-20" />
 
-        {/* Badge */}
-        {badge && (
-          <div className={`absolute top-4 left-4 px-3 py-1.5 rounded text-white font-space-mono text-xs font-bold shadow-lg ${
-            badge === 'HOT' ? 'bg-[#2563EB]' :
-            badge === 'SOLD' ? 'bg-gray-500' :
-            badge === 'FOR RENT' ? 'bg-blue-500' :
-            'bg-[#10B981]'
-          }`}>
-            {badge}
-          </div>
-        )}
+        {/* Badges row */}
+        <div className="absolute top-4 left-4 flex gap-2">
+          {badge && (
+            <div className={`px-3 py-1.5 rounded text-white font-space-mono text-xs font-bold shadow-lg ${
+              badge === 'HOT' ? 'bg-[#2563EB]' :
+              badge === 'SOLD' ? 'bg-gray-500' :
+              badge === 'FOR RENT' ? 'bg-blue-500' :
+              'bg-[#10B981]'
+            }`}>
+              {badge}
+            </div>
+          )}
+          {isNew && (
+            <div className="px-3 py-1.5 rounded bg-[#F59E0B] text-white font-space-mono text-xs font-bold shadow-lg">
+              NEW
+            </div>
+          )}
+        </div>
 
         {/* Favorite Button */}
         <button

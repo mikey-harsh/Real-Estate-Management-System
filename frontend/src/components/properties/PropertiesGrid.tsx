@@ -11,6 +11,16 @@ interface PropertiesGridProps {
   onFavoriteToggle?: (propertyId: string, value: boolean) => Promise<void>;
 }
 
+function isNewListing(id: string): boolean {
+  try {
+    const createdAt = new Date(parseInt(id.substring(0, 8), 16) * 1000);
+    const cutoff = new Date(Date.now() - 45 * 24 * 60 * 60 * 1000);
+    return createdAt > cutoff;
+  } catch {
+    return false;
+  }
+}
+
 const fallbackImages = [
   "https://images.unsplash.com/photo-1622015663381-d2e05ae91b72?w=800",
   "https://images.unsplash.com/photo-1695067440629-b5e513976100?w=800",
@@ -68,6 +78,7 @@ const PropertiesGrid: React.FC<PropertiesGridProps> = ({ properties, viewMode = 
                 property.availability?.toUpperCase()
               }
               tags={property.type ? [property.type] : []}
+              isNew={isNewListing(property._id)}
               isFavorited={favoriteIds?.includes(property._id)}
               onFavoriteToggle={onFavoriteToggle}
             />
