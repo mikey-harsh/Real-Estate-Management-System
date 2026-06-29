@@ -37,6 +37,14 @@ const PropertyDetailsPage: React.FC = () => {
   const [property, setProperty] = useState<PropertyData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   // Dynamic SEO based on loaded property
   useSEO({
@@ -157,6 +165,17 @@ const PropertyDetailsPage: React.FC = () => {
         city={city}
         propertyName={property.title}
       />
+
+      {/* Share Button */}
+      <div className="max-w-[1280px] mx-auto px-8 pt-4 flex justify-end">
+        <button
+          onClick={handleShare}
+          className="flex items-center gap-2 text-sm font-manrope font-semibold text-[#2563EB] hover:text-[#1D4ED8] transition-colors border border-[#2563EB] rounded-lg px-4 py-2 hover:bg-blue-50"
+        >
+          <span className="material-icons text-base">{copied ? 'check' : 'share'}</span>
+          {copied ? 'Link Copied!' : 'Share Property'}
+        </button>
+      </div>
 
       {/* Hero Image */}
       <PropertyHeroImage image={property.image?.[0]} />
