@@ -12,6 +12,7 @@ import PropertyLocation from '../components/property-details/PropertyLocation';
 import ScheduleViewingCard from '../components/property-details/ScheduleViewingCard';
 import EMICalculator from '../components/property-details/EMICalculator';
 import BackToTop from '../components/common/BackToTop';
+import SimilarProperties from '../components/property-details/SimilarProperties';
 import { propertiesAPI } from '../services/api';
 import { useSEO } from '../hooks/useSEO';
 import StructuredData from '../components/common/StructuredData';
@@ -235,6 +236,9 @@ const PropertyDetailsPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Similar Properties */}
+      <SimilarProperties currentId={property._id} city={city} />
 
       {/* Simple Footer */}
       <SimpleFooter />
