@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
+function parsePriceStr(p: string): number {
+  const clean = p.replace(/[₹,\s]/g, '');
+  if (clean.endsWith('Cr')) return parseFloat(clean) * 10_000_000;
+  if (clean.endsWith('L')) return parseFloat(clean) * 100_000;
+  return parseFloat(clean) || 0;
+}
+
 interface PropertyCardProps {
   id: string;
   image: string;
@@ -166,19 +173,22 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
           </div>
         </div>
 
-        {/* Tags */}
-        {tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-4 mb-4">
-            {tags.map((tag, index) => (
-              <span
-                key={index}
-                className="px-3 py-1 bg-[#F8F6F6] border border-[#E6E0DA] rounded-full font-manrope font-extralight text-xs text-[#6B7280] uppercase tracking-wide"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
+        {/* Tags + price/sqft */}
+        <div className="flex flex-wrap gap-2 mt-4 mb-4 items-center">
+          {tags.map((tag, index) => (
+            <span
+              key={index}
+              className="px-3 py-1 bg-[#F8F6F6] border border-[#E6E0DA] rounded-full font-manrope font-extralight text-xs text-[#6B7280] uppercase tracking-wide"
+            >
+              {tag}
+            </span>
+          ))}
+          {sqft > 0 && parsePriceStr(price) > 0 && (
+            <span className="ml-auto font-manrope font-extralight text-xs text-[#9CA3AF]">
+              ₹{Math.round(parsePriceStr(price) / sqft).toLocaleString('en-IN')}/sqft
+            </span>
+          )}
+        </div>
 
         <button className="w-full mt-2 bg-transparent border border-[#2563EB] text-[#2563EB] font-manrope font-bold py-2 rounded-lg hover:bg-[#2563EB] hover:text-white transition-all">
           View Details
