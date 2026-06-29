@@ -6,6 +6,7 @@ import PropertiesHeader from '../components/properties/PropertiesHeader';
 import PropertiesGrid from '../components/properties/PropertiesGrid';
 import LoadingState from '../components/common/LoadingState';
 import PropertyCardSkeleton from '../components/properties/PropertyCardSkeleton';
+import BackToTop from '../components/common/BackToTop';
 import { propertiesAPI, userAPI } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import { useSEO } from '../hooks/useSEO';
@@ -275,6 +276,9 @@ const PropertiesPage: React.FC = () => {
 
       {/* Footer */}
       <Footer />
+
+      {/* Back to top */}
+      <BackToTop />
     </div>
   );
 };
