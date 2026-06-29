@@ -131,15 +131,21 @@ const ContactFormCard: React.FC = () => {
 
         {/* Message */}
         <div>
-          <label className="block font-manrope font-extralight text-xs text-[#64748B] uppercase tracking-wider mb-2">
-            Message
-          </label>
+          <div className="flex justify-between mb-2">
+            <label className="font-manrope font-extralight text-xs text-[#64748B] uppercase tracking-wider">
+              Message
+            </label>
+            <span className={`font-manrope text-xs ${formData.message.length > 480 ? 'text-red-500' : 'text-[#9CA3AF]'}`}>
+              {formData.message.length}/500
+            </span>
+          </div>
           <textarea
             name="message"
             value={formData.message}
             onChange={handleInputChange}
             placeholder="Tell us about your inquiry..."
             rows={5}
+            maxLength={500}
             className="w-full bg-[#F5F1E8] border border-[#E6E0DA] rounded-lg px-4 py-3 font-manrope font-extralight text-sm text-[#0F172A] placeholder:text-[#94A3B8] focus:outline-none focus:border-[#2563EB] transition-colors resize-none"
             required
           />
