@@ -181,6 +181,17 @@ const PropertiesPage: React.FC = () => {
     setFilters(newFilters);
   };
 
+  const quickTypes = ['Apartment', 'House', 'Villa', 'Office'];
+
+  const handleQuickType = (type: string) => {
+    const current = filters.propertyType || [];
+    const lower = type.toLowerCase();
+    const next = current.includes(lower)
+      ? current.filter((t: string) => t !== lower)
+      : [...current, lower];
+    setFilters((prev: any) => ({ ...prev, propertyType: next.length ? next : undefined }));
+  };
+
   const handleSortChange = (sort: string) => {
     setSortBy(sort);
   };
@@ -225,6 +236,26 @@ const PropertiesPage: React.FC = () => {
             onViewChange={handleViewChange}
           />
 
+
+          {/* Quick-filter type chips */}
+          <div className="px-8 pt-4 pb-2 flex items-center gap-2 flex-wrap">
+            {quickTypes.map(type => {
+              const active = (filters.propertyType || []).includes(type.toLowerCase());
+              return (
+                <button
+                  key={type}
+                  onClick={() => handleQuickType(type)}
+                  className={`px-4 py-1.5 rounded-full font-manrope text-sm font-semibold border transition-all ${
+                    active
+                      ? 'bg-[#2563EB] text-white border-[#2563EB]'
+                      : 'bg-white text-[#374151] border-[#E6E0DA] hover:border-[#2563EB] hover:text-[#2563EB]'
+                  }`}
+                >
+                  {type}
+                </button>
+              );
+            })}
+          </div>
 
           {/* Loading State — skeleton grid */}
           {loading && (
