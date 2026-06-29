@@ -10,6 +10,7 @@ import PropertyAbout from '../components/property-details/PropertyAbout';
 import PropertyAmenities from '../components/property-details/PropertyAmenities';
 import PropertyLocation from '../components/property-details/PropertyLocation';
 import ScheduleViewingCard from '../components/property-details/ScheduleViewingCard';
+import EMICalculator from '../components/property-details/EMICalculator';
 import { propertiesAPI } from '../services/api';
 import { useSEO } from '../hooks/useSEO';
 import StructuredData from '../components/common/StructuredData';
@@ -195,11 +196,12 @@ const PropertyDetailsPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Column - Schedule Viewing Sidebar */}
+            {/* Right Column - Schedule Viewing + EMI Calculator */}
             <div className="lg:col-span-1">
               <ScheduleViewingCard
                 property={{ name: property.title, id: property._id }}
               />
+              <EMICalculator propertyPrice={property.price} />
             </div>
           </div>
         </div>
