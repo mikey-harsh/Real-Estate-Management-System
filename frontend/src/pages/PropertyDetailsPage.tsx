@@ -18,7 +18,6 @@ import { propertiesAPI } from '../services/api';
 import { formatPrice } from '../utils/formatPrice';
 import { useSEO } from '../hooks/useSEO';
 import StructuredData from '../components/common/StructuredData';
-import { formatPrice } from '../utils/formatPrice';
 
 interface PropertyData {
   _id: string;
