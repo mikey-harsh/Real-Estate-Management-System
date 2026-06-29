@@ -87,15 +87,32 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ onFilterChange }) => {
     }
   };
 
+  const activeCount = [
+    selectedLocation ? 1 : 0,
+    selectedPropertyType.length,
+    selectedAvailability ? 1 : 0,
+    (priceRange[0] > 0 || priceRange[1] < 200) ? 1 : 0,
+    bedrooms > 0 ? 1 : 0,
+    bathrooms > 0 ? 1 : 0,
+    selectedAmenities.length > 0 ? 1 : 0,
+  ].reduce((a, b) => a + b, 0);
+
   return (
     <div className="w-[359px] bg-white border-r border-[#E6E0DA] h-screen sticky top-20 overflow-y-auto pb-24">
       <div className="p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="font-manrope font-extralight text-lg text-[#111827]">
-            Refine Your Search
-          </h2>
-          <button 
+          <div className="flex items-center gap-2">
+            <h2 className="font-manrope font-extralight text-lg text-[#111827]">
+              Refine Your Search
+            </h2>
+            {activeCount > 0 && (
+              <span className="inline-flex items-center justify-center w-5 h-5 bg-[#2563EB] text-white rounded-full font-manrope font-bold text-xs">
+                {activeCount}
+              </span>
+            )}
+          </div>
+          <button
             onClick={handleReset}
             className="font-manrope font-extralight text-sm text-[#2563EB] hover:underline"
           >
