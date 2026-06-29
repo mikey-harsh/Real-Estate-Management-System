@@ -40,6 +40,18 @@ const PropertyDetailsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const el = document.documentElement;
+      const scrolled = el.scrollTop;
+      const total = el.scrollHeight - el.clientHeight;
+      setScrollProgress(total > 0 ? (scrolled / total) * 100 : 0);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -143,6 +155,12 @@ const PropertyDetailsPage: React.FC = () => {
 
   return (
     <div className="bg-white min-h-screen">
+      {/* Scroll progress bar */}
+      <div
+        className="fixed top-0 left-0 z-[100] h-[3px] bg-[#2563EB] transition-all duration-75"
+        style={{ width: `${scrollProgress}%` }}
+      />
+
       {/* Property Structured Data for SEO */}
       <StructuredData
         type="property"
