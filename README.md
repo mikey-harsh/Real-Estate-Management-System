@@ -260,6 +260,16 @@ VITE_BACKEND_URL=http://localhost:4000
 
 ---
 
+## Contributors
+
+| GitHub | Role |
+|---|---|
+| [mikey-harsh](https://github.com/mikey-harsh) | Full Stack Development |
+| [hariish18](https://github.com/hariish18) | Frontend Development |
+| [Dawar54](https://github.com/Dawar54) | Backend Development |
+
+---
+
 ## Contact
 
 **Location:** Bengaluru, Karnataka

@@ -12,7 +12,12 @@
     "render-build": "npm install",
     "test": "echo 'No tests specified' && exit 0"
   },
-  "author": "HARISH",
+  "author": "mikey-harsh",
+  "contributors": [
+    { "name": "mikey-harsh", "url": "https://github.com/mikey-harsh" },
+    { "name": "hariish18", "url": "https://github.com/hariish18" },
+    { "name": "Dawar54", "url": "https://github.com/Dawar54" }
+  ],
   "license": "ISC",
   "dependencies": {
     "@azure-rest/ai-inference": "^1.0.0-beta.5",
