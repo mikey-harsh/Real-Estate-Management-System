@@ -7,6 +7,7 @@ import PropertiesGrid from '../components/properties/PropertiesGrid';
 import LoadingState from '../components/common/LoadingState';
 import PropertyCardSkeleton from '../components/properties/PropertyCardSkeleton';
 import BackToTop from '../components/common/BackToTop';
+import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
 import { propertiesAPI, userAPI } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import { useSEO } from '../hooks/useSEO';
@@ -50,6 +51,7 @@ const PropertiesPage: React.FC = () => {
   }>({});
 
   const { isAuthenticated } = useAuth();
+  const { items: recentlyViewed } = useRecentlyViewed();
 
   const fetchFavorites = useCallback(async () => {
     if (!isAuthenticated) {
@@ -304,6 +306,37 @@ const PropertiesPage: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Recently Viewed */}
+      {recentlyViewed.length > 0 && (
+        <section className="bg-[#F8F6F2] border-t border-[#E6E0DA] py-10 px-8">
+          <div className="max-w-[1440px] mx-auto">
+            <h2 className="font-syne font-bold text-xl text-[#221410] mb-5">Recently Viewed</h2>
+            <div className="flex gap-4 overflow-x-auto pb-2">
+              {recentlyViewed.map(p => (
+                <a
+                  key={p.id}
+                  href={`/property/${p.id}`}
+                  className="flex-shrink-0 w-56 bg-white border border-[#E6E0DA] rounded-xl overflow-hidden hover:shadow-md transition-all group"
+                >
+                  <div className="h-32 overflow-hidden">
+                    <img
+                      src={p.image || 'https://images.unsplash.com/photo-1622015663381-d2e05ae91b72?w=400'}
+                      alt={p.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-3">
+                    <p className="font-space-mono text-sm font-bold text-[#2563EB]">{p.price}</p>
+                    <p className="font-syne text-sm text-[#221410] line-clamp-1">{p.title}</p>
+                    <p className="font-manrope text-xs text-[#6B7280] line-clamp-1">{p.location}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Footer */}
       <Footer />
