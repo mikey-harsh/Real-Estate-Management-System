@@ -1,8 +1,8 @@
 {
-  "name": "buildestate-root",
+  "name": "estate-management-root",
   "version": "1.0.0",
   "private": true,
-  "description": "Root workspace to launch BuildEstate backend, frontend, and admin dashboard",
+  "description": "Root workspace to launch Estate Management backend, frontend, and admin dashboard",
   "scripts": {
     "postinstall": "npm install --prefix backend && npm install --prefix frontend && npm install --prefix admin",
     "dev": "concurrently -n \"backend,frontend,admin\" -c \"blue,green,magenta\" \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\" \"npm run dev --prefix admin\""

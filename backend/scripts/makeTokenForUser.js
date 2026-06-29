@@ -5,11 +5,11 @@ import userModel from '../models/userModel.js';
 
 dotenv.config();
 
-const MONGO = process.env.MONGO_URI || 'mongodb://localhost:27017/buildestate';
+const MONGO = process.env.MONGO_URI || 'mongodb://localhost:27017/estate-management';
 
 const run = async (email) => {
   try {
-    await mongoose.connect(MONGO, { dbName: 'buildestate' });
+    await mongoose.connect(MONGO, { dbName: 'estate-management' });
     const user = await userModel.findOne({ email }).lean();
     if (!user) {
       console.error('User not found for', email);

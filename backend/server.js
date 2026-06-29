@@ -312,8 +312,8 @@ if (process.env.NODE_ENV !== 'production') {
     <p>Logging in as ${user.email} — you will be redirected to the app.</p>
     <script>
       try {
-        localStorage.setItem('buildestate_token', '${token}');
-        localStorage.setItem('buildestate_user', '${JSON.stringify(userSafe).replace(/'/g, "\\'")}');
+        localStorage.setItem('estatemanagement_token', '${token}');
+        localStorage.setItem('estatemanagement_user', '${JSON.stringify(userSafe).replace(/'/g, "\\'")}');
         window.location = '${frontend}';
       } catch (e) {
         document.body.appendChild(document.createTextNode('Failed to set localStorage: ' + e.message));

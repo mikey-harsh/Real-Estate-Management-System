@@ -49,7 +49,7 @@ const getLogLevel = () => {
 const logger = winston.createLogger({
   level: getLogLevel(),
   format: process.env.NODE_ENV === 'production' ? prodFormat : devFormat,
-  defaultMeta: { service: 'buildestate-api' },
+  defaultMeta: { service: 'estate-management-api' },
   transports: [
     new winston.transports.Console({
       stderrLevels: ['error'],

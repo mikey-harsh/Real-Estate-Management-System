@@ -22,7 +22,7 @@ const TestimonialsSection: React.FC = () => {
               ))}
             </div>
             <p className="font-manrope text-base text-[#4b5563] leading-relaxed mb-6">
-              "BuildEstate's AI matched us with our dream home in just 2 weeks. The process was seamless and personalized."
+              "Estate Management's AI matched us with our dream home in just 2 weeks. The process was seamless and personalized."
             </p>
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-[#E5E7EB] rounded-full" />

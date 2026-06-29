@@ -16,7 +16,7 @@ const apiClient = axios.create({
 // ── Request interceptor: attach auth token ──────────────────
 apiClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('buildestate_token');
+    const token = localStorage.getItem('estatemanagement_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -30,7 +30,7 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('buildestate_token');
+      localStorage.removeItem('estatemanagement_token');
       // Optionally redirect to login
       // window.location.href = '/signin';
     }
@@ -142,14 +142,14 @@ export const aiAPI = {
 
 // Helpers to read/write user API keys in localStorage
 export const apiKeyStorage = {
-  getGithubKey:    ()    => localStorage.getItem('buildestate_github_key') || '',
-  getFirecrawlKey: ()    => localStorage.getItem('buildestate_firecrawl_key') || '',
-  setGithubKey:    (key: string) => localStorage.setItem('buildestate_github_key', key),
-  setFirecrawlKey: (key: string) => localStorage.setItem('buildestate_firecrawl_key', key),
-  hasKeys: () => !!(localStorage.getItem('buildestate_github_key') && localStorage.getItem('buildestate_firecrawl_key')),
+  getGithubKey:    ()    => localStorage.getItem('estatemanagement_github_key') || '',
+  getFirecrawlKey: ()    => localStorage.getItem('estatemanagement_firecrawl_key') || '',
+  setGithubKey:    (key: string) => localStorage.setItem('estatemanagement_github_key', key),
+  setFirecrawlKey: (key: string) => localStorage.setItem('estatemanagement_firecrawl_key', key),
+  hasKeys: () => !!(localStorage.getItem('estatemanagement_github_key') && localStorage.getItem('estatemanagement_firecrawl_key')),
   clear: () => {
-    localStorage.removeItem('buildestate_github_key');
-    localStorage.removeItem('buildestate_firecrawl_key');
+    localStorage.removeItem('estatemanagement_github_key');
+    localStorage.removeItem('estatemanagement_firecrawl_key');
   },
 };
 

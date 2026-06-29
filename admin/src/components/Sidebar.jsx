@@ -101,7 +101,7 @@ const Sidebar = ({ isOpen, setIsOpen, isCollapsed, setIsCollapsed }) => {
               </motion.div>
               <div>
                 <span className="text-base font-bold text-[#FAF8F4] tracking-tight">
-                  BuildEstate
+                  Estate Management
                 </span>
                 <div className="text-[10px] text-[#9CA3AF] font-medium uppercase tracking-widest leading-none">
                   Admin Panel

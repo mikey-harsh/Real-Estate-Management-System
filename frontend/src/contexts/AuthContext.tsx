@@ -30,7 +30,7 @@ const normalizeUser = (userData: any) => {
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(localStorage.getItem('buildestate_token'));
+  const [token, setToken] = useState<string | null>(localStorage.getItem('estatemanagement_token'));
   const [isLoading, setIsLoading] = useState(true);
 
   const refreshUserProfile = useCallback(async () => {
@@ -41,7 +41,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (data && data._id) {
         const normalizedUser = normalizeUser(data);
         setUser(normalizedUser);
-        localStorage.setItem('buildestate_user', JSON.stringify(normalizedUser));
+        localStorage.setItem('estatemanagement_user', JSON.stringify(normalizedUser));
       }
     } catch (error) {
       console.error('Failed to refresh user profile', error);
@@ -51,8 +51,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // On mount, check if token exists and is valid
   useEffect(() => {
     const initializeAuth = async () => {
-      const storedToken = localStorage.getItem('buildestate_token');
-      const storedUser = localStorage.getItem('buildestate_user');
+      const storedToken = localStorage.getItem('estatemanagement_token');
+      const storedUser = localStorage.getItem('estatemanagement_user');
 
       if (storedToken) {
         try {
@@ -62,8 +62,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }
           await refreshUserProfile();
         } catch {
-          localStorage.removeItem('buildestate_token');
-          localStorage.removeItem('buildestate_user');
+          localStorage.removeItem('estatemanagement_token');
+          localStorage.removeItem('estatemanagement_user');
           setToken(null);
           setUser(null);
         }
@@ -79,8 +79,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const { data } = await userAPI.login({ email, password, rememberMe });
     if (data.success && data.token) {
       const normalizedUser = normalizeUser(data.user);
-      localStorage.setItem('buildestate_token', data.token);
-      localStorage.setItem('buildestate_user', JSON.stringify(normalizedUser));
+      localStorage.setItem('estatemanagement_token', data.token);
+      localStorage.setItem('estatemanagement_user', JSON.stringify(normalizedUser));
       setToken(data.token);
       setUser(normalizedUser);
     } else {
@@ -92,8 +92,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const { data } = await userAPI.register({ fullName, email, phone, password, role });
     if (data.success && data.token) {
       const normalizedUser = normalizeUser(data.user);
-      localStorage.setItem('buildestate_token', data.token);
-      localStorage.setItem('buildestate_user', JSON.stringify(normalizedUser));
+      localStorage.setItem('estatemanagement_token', data.token);
+      localStorage.setItem('estatemanagement_user', JSON.stringify(normalizedUser));
       setToken(data.token);
       setUser(normalizedUser);
     } else {
@@ -102,8 +102,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const logout = useCallback(() => {
-    localStorage.removeItem('buildestate_token');
-    localStorage.removeItem('buildestate_user');
+    localStorage.removeItem('estatemanagement_token');
+    localStorage.removeItem('estatemanagement_user');
     setToken(null);
     setUser(null);
   }, []);

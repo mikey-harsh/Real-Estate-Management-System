@@ -19,8 +19,8 @@ const Footer: React.FC = () => {
           {/* Brand Column */}
           <div>
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <img src="/logo.png" alt="BuildEstate" className="h-10 w-auto brightness-0 invert" />
-              <span className="font-fraunces text-2xl font-bold">BuildEstate</span>
+              <img src="/logo.png" alt="Estate Management" className="h-10 w-auto brightness-0 invert" />
+              <span className="font-fraunces text-2xl font-bold">Estate Management</span>
             </Link>
             <p className="font-manrope font-extralight text-[#9ca3af] text-sm leading-relaxed mb-6">
               Luxury real estate platform connecting you with your dream home through intelligent matching and personalized recommendations.
@@ -160,7 +160,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-[rgba(255,255,255,0.1)] pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="font-manrope font-extralight text-[#6b7280] text-sm text-center md:text-left">
-              © 2026 BuildEstate. All rights reserved.
+              © 2026 Estate Management. All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
               <a href="#" className="font-manrope font-extralight text-[#6b7280] text-sm hover:text-white transition-colors">

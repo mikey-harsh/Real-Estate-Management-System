@@ -13,7 +13,7 @@ import NewsletterBanner from '../components/contact/NewsletterBanner';
 const ContactPage: React.FC = () => {
   useSEO({
     title: 'Contact Us',
-    description: 'Get in touch with BuildEstate. We\'re here to help you find your dream property.',
+    description: 'Get in touch with Estate Management. We\'re here to help you find your dream property.',
   });
 
   return (

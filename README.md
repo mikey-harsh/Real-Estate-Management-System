@@ -1,4 +1,4 @@
-# BuildEstate — Real Estate Management System
+# Estate Management — Real Estate Management System
 
 A full-stack real estate platform built with React, Node.js, and MongoDB. Supports property listings, appointment scheduling, user authentication, and a separate admin dashboard.
 
@@ -19,7 +19,7 @@ A full-stack real estate platform built with React, Node.js, and MongoDB. Suppor
 
 ## Overview
 
-BuildEstate is a property listing and management platform focused on the Indian real estate market, with primary coverage in Bengaluru and other major metro cities. It provides separate experiences for buyers, sellers, and administrators.
+Estate Management is a property listing and management platform focused on the Indian real estate market, with primary coverage in Bengaluru and other major metro cities. It provides separate experiences for buyers, sellers, and administrators.
 
 The platform runs as three services from a single monorepo:
 
@@ -92,7 +92,7 @@ The platform runs as three services from a single monorepo:
 ## Project Structure
 
 ```
-buildestate/
+estate-management/
 ├── backend/
 │   ├── config/             # MongoDB, ImageKit, email config
 │   ├── controller/         # Route handlers
@@ -176,9 +176,9 @@ Inserts 28 demo properties and 5 sample users.
 ```env
 PORT=4000
 NODE_ENV=development
-MONGO_URI=mongodb://localhost:27017/buildestate
+MONGO_URI=mongodb://localhost:27017/estate-management
 JWT_SECRET=your_jwt_secret
-ADMIN_EMAIL=admin@buildestate.com
+ADMIN_EMAIL=admin@estatemanagement.com
 ADMIN_PASSWORD=YourSecurePassword
 SMTP_USER=your_smtp_login
 SMTP_PASS=your_smtp_password

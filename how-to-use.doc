@@ -3,7 +3,7 @@
       xmlns="http://www.w3.org/TR/REC-html40">
 <head>
 <meta charset="UTF-8">
-<title>BuildEstate — How to Use</title>
+<title>Estate Management — How to Use</title>
 <!--[if gte mso 9]>
 <xml>
   <w:WordDocument>
@@ -199,7 +199,7 @@
 
 <!-- COVER PAGE -->
 <div class="cover-title">
-  <h1 style="border-bottom:none; color:#1F3864; font-size:36pt;">BuildEstate</h1>
+  <h1 style="border-bottom:none; color:#1F3864; font-size:36pt;">Estate Management</h1>
   <p class="cover-subtitle">Real Estate Management System<br>User Guide</p>
   <hr style="border:1pt solid #2563EB; width:200pt; margin:20pt auto;">
   <p class="cover-meta">
@@ -235,7 +235,7 @@
 <!-- SECTION 1 -->
 <h1 id="overview">1. Project Overview</h1>
 
-<p>BuildEstate is a full-stack real estate platform with three separate services that run together:</p>
+<p>Estate Management is a full-stack real estate platform with three separate services that run together:</p>
 
 <table>
   <tr>
@@ -311,17 +311,17 @@ cd Real-Estate-Management-System</pre>
   </tr>
   <tr>
     <td><code>MONGO_URI</code></td>
-    <td>mongodb://localhost:27017/buildestate</td>
+    <td>mongodb://localhost:27017/estate-management</td>
     <td>MongoDB connection string. Change if using Atlas.</td>
   </tr>
   <tr>
     <td><code>JWT_SECRET</code></td>
-    <td>buildestate_dev_jwt_secret…</td>
+    <td>estatemanagement_dev_jwt_secret…</td>
     <td>Secret key for signing login tokens. Keep private.</td>
   </tr>
   <tr>
     <td><code>ADMIN_EMAIL</code></td>
-    <td>admin@buildestate.com</td>
+    <td>admin@estatemanagement.com</td>
     <td>Email used to log into the admin dashboard.</td>
   </tr>
   <tr>
@@ -367,12 +367,12 @@ node scripts/createAdmin.js</pre>
 <p>You should see:</p>
 <pre>Connected to MongoDB
 Admin user created successfully
-Email: admin@buildestate.com</pre>
+Email: admin@estatemanagement.com</pre>
 
 <p>The admin credentials are:</p>
 <div class="credential-box">
   URL:       http://localhost:5174<br>
-  Email:     admin@buildestate.com<br>
+  Email:     admin@estatemanagement.com<br>
   Password:  Admin@123456
 </div>
 
@@ -385,7 +385,7 @@ Email: admin@buildestate.com</pre>
 <p>If you need to reset the admin, delete the existing admin record and run the script again:</p>
 <ol>
   <li>Open MongoDB Compass or your MongoDB client</li>
-  <li>Connect to <code>mongodb://localhost:27017/buildestate</code></li>
+  <li>Connect to <code>mongodb://localhost:27017/estate-management</code></li>
   <li>Find the <strong>admins</strong> collection and delete the document</li>
   <li>Run <code>node scripts/createAdmin.js</code> again</li>
 </ol>
@@ -744,7 +744,7 @@ node scripts/seedAll.js --force</pre>
 </ol>
 
 <div class="credential-box">
-  Email:    admin@buildestate.com<br>
+  Email:    admin@estatemanagement.com<br>
   Password: Admin@123456
 </div>
 
@@ -895,7 +895,7 @@ node scripts/seedAll.js --force</pre>
 <hr class="section-divider">
 
 <p style="text-align:center; color:#9ca3af; font-size:10pt; margin-top:30pt;">
-  BuildEstate &mdash; Real Estate Management System &mdash; Bengaluru, Karnataka<br>
+  Estate Management &mdash; Real Estate Management System &mdash; Bengaluru, Karnataka<br>
   Contact: CBA.Teach.Team2@gmail.com
 </p>
 

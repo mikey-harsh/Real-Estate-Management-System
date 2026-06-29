@@ -3,7 +3,7 @@
   "private": true,
   "version": "2.0.0",
   "type": "module",
-  "description": "BuildEstate admin dashboard for property management",
+  "description": "Estate Management admin dashboard for property management",
   "author": "mikey-harsh",
   "contributors": [
     { "name": "mikey-harsh", "url": "https://github.com/mikey-harsh" },
