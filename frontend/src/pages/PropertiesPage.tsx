@@ -287,10 +287,21 @@ const PropertiesPage: React.FC = () => {
           {/* Empty State */}
           {!loading && !error && filteredProperties.length === 0 && (
             <div className="flex items-center justify-center py-24">
-              <div className="text-center">
-                <span className="material-icons text-4xl text-[#9CA3AF] mb-4">search_off</span>
-                <p className="font-manrope text-[#374151] mb-2">No properties found</p>
-                <p className="font-manrope font-extralight text-sm text-[#6B7280]">Try adjusting your filters</p>
+              <div className="text-center max-w-sm">
+                <div className="w-20 h-20 bg-[#EFF6FF] rounded-full flex items-center justify-center mx-auto mb-5">
+                  <span className="material-icons text-4xl text-[#2563EB]">search_off</span>
+                </div>
+                <h3 className="font-syne font-bold text-xl text-[#221410] mb-2">No properties found</h3>
+                <p className="font-manrope font-extralight text-sm text-[#6B7280] mb-6">
+                  No listings match your current filters. Try broadening your search — fewer filters means more results.
+                </p>
+                <button
+                  onClick={() => setFilters({})}
+                  className="bg-[#2563EB] text-white font-manrope font-bold px-6 py-2.5 rounded-lg hover:bg-[#1D4ED8] transition-all inline-flex items-center gap-2"
+                >
+                  <span className="material-icons text-base">tune</span>
+                  Clear All Filters
+                </button>
               </div>
             </div>
           )}
