@@ -8,6 +8,17 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const navRef = React.useRef<HTMLElement>(null);
+
+  React.useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (isMobileMenuOpen && navRef.current && !navRef.current.contains(e.target as Node)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isMobileMenuOpen]);
   const [theme, setTheme] = React.useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') || 
@@ -61,14 +72,15 @@ const Navbar: React.FC = () => {
 
   return (
     <motion.nav
+      ref={navRef}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      style={{ 
-        backgroundColor: theme === 'dark' 
-          ? `rgba(28, 27, 26, ${bgOpacity.get()})` 
-          : `rgba(255, 255, 255, ${bgOpacity.get()})`, 
-        backdropFilter: backdropBlur 
+      style={{
+        backgroundColor: theme === 'dark'
+          ? `rgba(28, 27, 26, ${bgOpacity.get()})`
+          : `rgba(255, 255, 255, ${bgOpacity.get()})`,
+        backdropFilter: backdropBlur
       }}
       className="sticky top-0 z-50 border-b border-[#E6D5C3] dark:border-gray-800 transition-colors duration-200"
     >
