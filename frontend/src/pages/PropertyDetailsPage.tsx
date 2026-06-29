@@ -13,7 +13,9 @@ import ScheduleViewingCard from '../components/property-details/ScheduleViewingC
 import EMICalculator from '../components/property-details/EMICalculator';
 import BackToTop from '../components/common/BackToTop';
 import SimilarProperties from '../components/property-details/SimilarProperties';
+import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
 import { propertiesAPI } from '../services/api';
+import { formatPrice } from '../utils/formatPrice';
 import { useSEO } from '../hooks/useSEO';
 import StructuredData from '../components/common/StructuredData';
 import { formatPrice } from '../utils/formatPrice';
@@ -41,6 +43,7 @@ const PropertyDetailsPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const { addItem: addRecentlyViewed } = useRecentlyViewed();
 
   useEffect(() => {
     const onScroll = () => {
@@ -52,6 +55,20 @@ const PropertyDetailsPage: React.FC = () => {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!property) return;
+    addRecentlyViewed({
+      id: property._id,
+      title: property.title,
+      location: property.location,
+      price: formatPrice(property.price),
+      image: property.image?.[0] || '',
+      beds: property.beds,
+      baths: property.baths,
+      sqft: property.sqft,
+    });
+  }, [property?._id]);
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
