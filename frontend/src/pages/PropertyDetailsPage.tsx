@@ -213,7 +213,7 @@ const PropertyDetailsPage: React.FC = () => {
           {copied ? 'Link Copied!' : 'Share Property'}
         </button>
         <a
-          href={`https://wa.me/918044123456?text=${encodeURIComponent(`Hi, I'm interested in: ${property.title} — ${window.location.href}`)}`}
+          href={`https://wa.me/?text=${encodeURIComponent(`Hi, I'm interested in: ${property.title} — ${window.location.href}`)}`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 text-sm font-manrope font-semibold text-[#16A34A] hover:text-[#15803D] transition-colors border border-[#16A34A] rounded-lg px-4 py-2 hover:bg-green-50"

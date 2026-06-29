@@ -123,7 +123,7 @@ const ContactFormCard: React.FC = () => {
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleInputChange}
-            placeholder="+91 80 4412 3456"
+            placeholder="+91 XXXXXX889"
             className="w-full bg-[#F5F1E8] border border-[#E6E0DA] rounded-lg px-4 py-3 font-manrope font-extralight text-sm text-[#0F172A] placeholder:text-[#94A3B8] focus:outline-none focus:border-[#2563EB] transition-colors"
             required
           />

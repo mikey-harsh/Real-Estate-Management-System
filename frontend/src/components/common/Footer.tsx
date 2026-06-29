@@ -108,20 +108,16 @@ const Footer: React.FC = () => {
             <h4 className="font-syne font-bold text-white text-lg mb-6">Contact Info</h4>
             <ul className="space-y-4">
               <li>
-                <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 font-manrope font-extralight text-[#9ca3af] text-sm hover:text-white transition-colors group">
+                <div className="flex items-start gap-3 font-manrope font-extralight text-[#9ca3af] text-sm">
                   <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0 text-[#2563EB]" />
-                  <span className="leading-relaxed">
-                    No. 15, 5th Cross,<br />
-                    Koramangala 4th Block,<br />
-                    Bengaluru, Karnataka - 560034
-                  </span>
-                </a>
+                  <span className="leading-relaxed">Bengaluru, Karnataka</span>
+                </div>
               </li>
               <li>
-                <a href="tel:+918044123456" className="flex items-center gap-3 font-manrope font-extralight text-[#9ca3af] text-sm hover:text-white transition-colors">
+                <div className="flex items-center gap-3 font-manrope font-extralight text-[#9ca3af] text-sm">
                   <Phone className="w-5 h-5 flex-shrink-0 text-[#2563EB]" />
-                  <span>+91 80 4412 3456</span>
-                </a>
+                  <span>+91 XXXXXX889</span>
+                </div>
               </li>
               <li>
                 <a href="mailto:CBA.Teach.Team2@gmail.com" className="flex items-center gap-3 font-manrope font-extralight text-[#9ca3af] text-sm hover:text-white transition-colors">

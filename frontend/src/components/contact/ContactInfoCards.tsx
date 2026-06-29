@@ -16,9 +16,7 @@ const ContactInfoCards: React.FC = () => {
               Visit Our Office
             </h3>
             <p className="font-manrope font-extralight text-sm text-[#4B5563] leading-relaxed mb-3">
-              No. 15, 5th Cross,<br />
-              Koramangala 4th Block,<br />
-              Bengaluru, Karnataka - 560034
+              Bengaluru, Karnataka
             </p>
             <a 
               href="https://maps.google.com" 
@@ -48,15 +46,10 @@ const ContactInfoCards: React.FC = () => {
               Call or Email Us
             </h3>
             <div className="space-y-2">
-              <a
-                href="tel:+918044123456"
-                className="flex items-center gap-2 font-manrope font-extralight text-sm text-[#4B5563] hover:text-[#2563EB] transition-colors"
-              >
-                <span className="material-icons text-base">
-                  call
-                </span>
-                <span>+91 80 4412 3456</span>
-              </a>
+              <div className="flex items-center gap-2 font-manrope font-extralight text-sm text-[#4B5563]">
+                <span className="material-icons text-base">call</span>
+                <span>+91 XXXXXX889</span>
+              </div>
               <a
                 href="mailto:CBA.Teach.Team2@gmail.com"
                 className="flex items-center gap-2 font-manrope font-extralight text-sm text-[#4B5563] hover:text-[#2563EB] transition-colors"
