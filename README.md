@@ -1,6 +1,6 @@
 # Estate Management — Real Estate Management System
 
-A full-stack real estate platform built with React, Node.js, and MongoDB. Supports property listings, appointment scheduling, user authentication, and a separate admin dashboard.
+A full-stack real estate platform built with React, Node.js, and MongoDB. Supports property listings, appointment scheduling, user authentication, a separate admin dashboard, and an **AI Property Hub** powered by GitHub Models (GPT-4o) and Firecrawl for natural-language property search and live market trend analysis.
 
 ---
 
@@ -14,12 +14,13 @@ A full-stack real estate platform built with React, Node.js, and MongoDB. Suppor
 - [Environment Variables](#environment-variables)
 - [API Reference](#api-reference)
 - [Screenshots](#screenshots)
+- [Contributors](#contributors)
 
 ---
 
 ## Overview
 
-Estate Management is a property listing and management platform focused on the Indian real estate market, with primary coverage in Bengaluru and other major metro cities. It provides separate experiences for buyers, sellers, and administrators.
+Estate Management is a property listing and management platform focused on the Indian real estate market, with primary coverage in Bengaluru and other major metro cities. It provides separate experiences for buyers, sellers, and administrators, and includes an AI-powered search module that scrapes live listings and generates market intelligence on demand.
 
 The platform runs as three services from a single monorepo:
 
@@ -40,33 +41,45 @@ The platform runs as three services from a single monorepo:
 - Price per sqft on every card
 - Recently viewed properties strip (localStorage)
 - Property type quick-filter chips
+- Active filter count badge with clear-all action
 
 ### Property Details
-- Schedule a viewing form (guest and authenticated)
+- Multi-image gallery with full-screen view
+- Scroll progress indicator bar
 - Interactive EMI calculator (down payment %, interest rate, loan tenure)
 - Share property — copies URL to clipboard
 - Similar properties section (same city)
-- Scroll progress indicator
+- Estimated reading time on description
+
+### AI Property Hub
+- **Natural-language search** — describe city, locality, BHK, budget, and possession; GPT-4o interprets intent and returns ranked, AI-summarised results scraped live from the web
+- **Location trend analysis** — enter any city to get a structured market brief: price momentum, supply/demand signals, infrastructure news, and investment outlook
+- **No browser setup required** — API keys are resolved from backend environment variables; users can optionally override with personal keys stored in localStorage
+- Rate-limited at 10 requests per hour per IP to prevent abuse
 
 ### Authentication
 - JWT-based login and registration
-- Forgot password / reset password via email
+- Email verification on sign-up
+- Forgot password / reset password via email (Brevo SMTP)
 - Role-based access: buyer, seller, admin
+- Session persistence across browser tabs
 
 ### Seller Tools
-- Add and edit property listings with image upload
+- Add and edit property listings with ImageKit image upload
 - View and respond to incoming viewing requests
-- Separate "My Listings" page
+- Separate "My Listings" page with edit/delete controls
+- Auto-expire listings after possession date (cron job)
 
 ### Admin Dashboard
 - Property CRUD with image upload
+- Approve / reject pending listings
 - Appointment management with status updates
-- User management
-- Platform analytics
+- User management and suspension controls
+- Platform-wide analytics
 
-### Contact
-- Location: Bengaluru, Karnataka
+### Contact & Forms
 - Character-limited contact form (500 chars) with live counter
+- Brevo transactional email on form submission
 
 ---
 
@@ -77,15 +90,20 @@ The platform runs as three services from a single monorepo:
 - Tailwind CSS v4
 - Framer Motion
 - React Router v7
-- Axios
+- Axios, Recharts
 
 **Backend**
 - Node.js, Express.js
 - MongoDB with Mongoose
-- JWT authentication
-- bcryptjs
+- JWT authentication, bcryptjs
 - Nodemailer (Brevo SMTP)
 - Multer + ImageKit for image uploads
+- Helmet, express-rate-limit, express-mongo-sanitize
+- Winston logging, node-cron
+
+**AI Services**
+- GitHub Models API — GPT-4o for property search and market trend summaries
+- Firecrawl — live web scraping of real estate listings
 
 ---
 
@@ -95,7 +113,7 @@ The platform runs as three services from a single monorepo:
 estate-management/
 ├── backend/
 │   ├── config/             # MongoDB, ImageKit, email config
-│   ├── controller/         # Route handlers
+│   ├── controller/         # Route handlers (incl. AI search)
 │   ├── middleware/         # JWT auth, file uploads, rate limiting
 │   ├── models/             # Mongoose schemas
 │   ├── routes/             # Express route files
@@ -106,10 +124,11 @@ estate-management/
 │
 ├── frontend/
 │   └── src/
-│       ├── components/     # UI components (Navbar, Footer, PropertyCard, etc.)
+│       ├── components/
+│       │   └── ai-hub/     # AIHeroSection, ResultsGrid, TrendsPanel
 │       ├── contexts/       # AuthContext
 │       ├── hooks/          # useSEO, useRecentlyViewed
-│       ├── pages/          # Route-level page components
+│       ├── pages/          # Route-level pages (incl. AIPropertyHubPage)
 │       ├── services/       # api.ts — Axios instance + all API calls
 │       └── utils/          # formatPrice.ts
 │
@@ -128,6 +147,8 @@ estate-management/
 
 - Node.js 18 or later
 - MongoDB (local or Atlas)
+- GitHub Models API key (`ghp_` prefix) — [get one here](https://github.com/marketplace/models)
+- Firecrawl API key (`fc-` prefix) — [get one here](https://firecrawl.dev)
 
 ### Setup
 
@@ -137,10 +158,10 @@ cd Real-Estate-Management-System
 npm install
 ```
 
-Copy environment files and fill in your values:
+Copy the environment file and fill in your values:
 
 ```bash
-cp backend/.env.local.example backend/.env.local
+cp backend/.env.example backend/.env
 ```
 
 Start all three services:
@@ -171,30 +192,46 @@ Inserts 28 demo properties and 5 sample users.
 
 ## Environment Variables
 
-### Backend — `backend/.env.local`
+### Backend — `backend/.env`
 
 ```env
 PORT=4000
 NODE_ENV=development
-MONGO_URI=mongodb://localhost:27017/estate-management
+MONGO_URI=mongodb://localhost:27017/buildestate
 JWT_SECRET=your_jwt_secret
+
+# Admin credentials
 ADMIN_EMAIL=admin@estatemanagement.com
 ADMIN_PASSWORD=YourSecurePassword
+
+# Email (Brevo SMTP)
 SMTP_USER=your_smtp_login
 SMTP_PASS=your_smtp_password
 EMAIL=your_sender_email
+
+# Frontend URLs (CORS)
 WEBSITE_URL=http://localhost:5173
 FRONTEND_URL=http://localhost:5173
 ADMIN_URL=http://localhost:5174
+LOCAL_URLS=http://localhost:5173,http://localhost:5174
+
+# Image storage
 IMAGEKIT_PUBLIC_KEY=public_xxxxx
 IMAGEKIT_PRIVATE_KEY=private_xxxxx
 IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/your_id
+
+# AI Services — required for AI Property Hub
+GITHUB_MODELS_API_KEY=ghp_your_github_models_key
+FIRECRAWL_API_KEY=fc-your_firecrawl_key
 ```
+
+> **Note:** If `GITHUB_MODELS_API_KEY` and `FIRECRAWL_API_KEY` are set here, the AI Property Hub works for all users without any browser-side configuration. Users can optionally supply their own keys via the key modal in the UI.
 
 ### Frontend — `frontend/.env.local`
 
 ```env
 VITE_API_BASE_URL=http://localhost:4000
+VITE_ENABLE_AI_HUB=true
 ```
 
 ### Admin — `admin/.env.local`
@@ -228,6 +265,16 @@ VITE_BACKEND_URL=http://localhost:4000
 | POST | /api/products/update | Update property (admin) |
 | POST | /api/products/remove | Delete property (admin) |
 
+### AI Property Hub
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | /api/properties/search | AI-powered property search (GPT-4o + Firecrawl) |
+| GET | /api/properties/trends/:city | Live market trend analysis for a city |
+| POST | /api/properties/validate-keys | Validate GitHub Models + Firecrawl API keys |
+
+API keys are read from `X-Github-Key` and `X-Firecrawl-Key` request headers. If headers are absent, the backend falls back to `GITHUB_MODELS_API_KEY` and `FIRECRAWL_API_KEY` environment variables.
+
 ### Appointments
 
 | Method | Endpoint | Description |
@@ -258,6 +305,14 @@ VITE_BACKEND_URL=http://localhost:4000
 
 ![Properties](./Image/property.png)
 
+### AI Property Hub — Search
+
+![AI Hub Search](./Image/aihub-1.png)
+
+### AI Property Hub — Results
+
+![AI Hub Results](./Image/aihub-2.png)
+
 ---
 
 ## Contributors
@@ -274,7 +329,5 @@ VITE_BACKEND_URL=http://localhost:4000
 ## Contact
 
 **Location:** Bengaluru, Karnataka
-
-**Phone:** +91 XXXXXX889
 
 **Email:** CBA.Teach.Team2@gmail.com
