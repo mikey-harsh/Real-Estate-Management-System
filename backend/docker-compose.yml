@@ -2,10 +2,11 @@ version: '3.8'
 
 services:
   backend:
-    build: ./backend
+    build: .
     ports:
       - "4000:4000"
     env_file:
-      - ./backend/.env.local
+      - .env.local
     volumes:
-      - ./backend:/app
+      - .:/app
+      - /app/node_modules
