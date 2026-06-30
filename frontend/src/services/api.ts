@@ -133,11 +133,56 @@ export const appointmentsAPI = {
     apiClient.put(`/appointments/cancel/${id}`, { cancelReason: reason }),
 };
 
-// AI API disabled — AI Property Hub feature removed
 export const aiAPI = {
-  search: () => Promise.reject(new Error('AI Property Hub feature is disabled')),
-  locationTrends: () => Promise.reject(new Error('AI Property Hub feature is disabled')),
-  validateKeys: () => Promise.reject(new Error('AI Property Hub feature is disabled')),
+  search: (params: {
+    city: string;
+    locality: string;
+    bhk: string;
+    possession: string;
+    price: { min: number; max: number };
+    type: string;
+    category: string;
+  }) =>
+    apiClient.post(
+      '/properties/search',
+      {
+        city: params.city,
+        locality: params.locality,
+        bhk: params.bhk,
+        possession: params.possession,
+        minPrice: String(params.price.min / 10_000_000),
+        maxPrice: String(params.price.max / 10_000_000),
+        propertyType: params.type,
+        propertyCategory: params.category,
+        limit: 6,
+      },
+      {
+        headers: {
+          'X-Github-Key': apiKeyStorage.getGithubKey(),
+          'X-Firecrawl-Key': apiKeyStorage.getFirecrawlKey(),
+        },
+      }
+    ),
+
+  locationTrends: (city: string) =>
+    apiClient.get(`/properties/trends/${encodeURIComponent(city)}`, {
+      headers: {
+        'X-Github-Key': apiKeyStorage.getGithubKey(),
+        'X-Firecrawl-Key': apiKeyStorage.getFirecrawlKey(),
+      },
+    }),
+
+  validateKeys: (keys: { githubKey: string; firecrawlKey: string }) =>
+    apiClient.post(
+      '/properties/validate-keys',
+      {},
+      {
+        headers: {
+          'X-Github-Key': keys.githubKey,
+          'X-Firecrawl-Key': keys.firecrawlKey,
+        },
+      }
+    ),
 };
 
 // Helpers to read/write user API keys in localStorage

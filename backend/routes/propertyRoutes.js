@@ -1,7 +1,6 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
-import { searchProperties, createUserListing, getUserListings, updateUserListing, deleteUserListing, getCacheStats } from '../controller/propertyController.js';
-// AI frontend transform removed — AI endpoints are disabled
+import { searchProperties, getLocationTrends, createUserListing, getUserListings, updateUserListing, deleteUserListing, getCacheStats } from '../controller/propertyController.js';
 import { protect } from '../middleware/authMiddleware.js';
 import upload from '../middleware/multer.js';
 import { createDistributedRateLimiter } from '../utils/distributedRateLimiter.js';
@@ -29,10 +28,23 @@ const distributedLimiter = createDistributedRateLimiter({
 
 const aiLimiter = distributedLimiter.createMiddleware();
 
-// Original route (backend format) — rate-limited
 router.post('/properties/search', aiLimiter, searchProperties);
+router.get('/properties/trends/:city', aiLimiter, getLocationTrends);
 
-// NOTE: AI frontend routes have been removed to disable the AI Property Hub feature.
+router.post('/properties/validate-keys', (req, res) => {
+    const githubKey = req.headers['x-github-key']?.trim() || process.env.GITHUB_MODELS_API_KEY?.trim();
+    const firecrawlKey = req.headers['x-firecrawl-key']?.trim() || process.env.FIRECRAWL_API_KEY?.trim();
+    if (!githubKey || !firecrawlKey) {
+        return res.status(403).json({ success: false, message: 'Both API keys are required.', error: 'KEYS_REQUIRED' });
+    }
+    if (!githubKey.startsWith('ghp_') && !githubKey.startsWith('github_pat_')) {
+        return res.status(403).json({ success: false, message: 'GitHub key format is invalid.', error: 'KEYS_INVALID' });
+    }
+    if (!firecrawlKey.startsWith('fc-')) {
+        return res.status(403).json({ success: false, message: 'Firecrawl key format is invalid.', error: 'KEYS_INVALID' });
+    }
+    res.json({ success: true, message: 'Keys validated successfully.' });
+});
 
 // ── User listing routes (auth required) ──────────────────────────────────────
 router.post('/user/properties', protect, upload.array('images', 4), createUserListing);

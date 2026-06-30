@@ -70,8 +70,8 @@ export async function getCacheStats() {
  * The server's own env-var keys are NEVER used as a fallback.
  */
 function resolveServices(req) {
-    const githubKey = req.headers['x-github-key']?.trim();
-    const firecrawlKey = req.headers['x-firecrawl-key']?.trim();
+    const githubKey = req.headers['x-github-key']?.trim() || process.env.GITHUB_MODELS_API_KEY?.trim();
+    const firecrawlKey = req.headers['x-firecrawl-key']?.trim() || process.env.FIRECRAWL_API_KEY?.trim();
 
     if (!githubKey || !firecrawlKey) {
         const err = new Error(
