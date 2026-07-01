@@ -12,10 +12,13 @@ const PropertyHeroImage: React.FC<PropertyHeroImageProps> = ({ image }) => {
     <div className="bg-[#F2EFE9] py-8">
       <div className="max-w-[1280px] mx-auto px-8">
         <div className="relative aspect-[1280/440] rounded-2xl overflow-hidden shadow-xl">
-          <img 
+          <img
             src={img1HeroImage}
             alt="Property"
             className="w-full h-full object-cover"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).src = "https://images.unsplash.com/photo-1622015663381-d2e05ae91b72?w=1200";
+            }}
           />
           
           {/* Gradient Overlay */}

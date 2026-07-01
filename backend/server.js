@@ -85,7 +85,11 @@ app.use(helmet({
 app.use(compression());
 
 // Serve uploaded files locally (fallback when ImageKit is not configured)
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Override Helmet's default CORP: same-origin so cross-origin <img> tags can load these files
+app.use('/uploads', (req, res, next) => {
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  next();
+}, express.static(path.join(__dirname, 'uploads')));
 
 app.use(express.json({ limit: '500kb' }));
 app.use(express.urlencoded({ extended: true, limit: '500kb' }));
