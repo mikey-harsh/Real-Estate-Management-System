@@ -120,6 +120,17 @@ export const appointmentsAPI = {
   }) =>
     apiClient.post('/appointments/schedule', data),
 
+  scheduleAuth: (data: {
+    propertyId: string;
+    date: string;
+    time: string;
+    name: string;
+    email: string;
+    phone: string;
+    message?: string;
+  }) =>
+    apiClient.post('/appointments/schedule/auth', data),
+
   getByUser: () =>
     apiClient.get('/appointments/user'),
 

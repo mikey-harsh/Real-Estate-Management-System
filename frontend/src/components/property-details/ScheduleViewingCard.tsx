@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'sonner';
 import { appointmentsAPI } from '../../services/api';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface ScheduleViewingCardProps {
   property: {
@@ -11,7 +12,8 @@ interface ScheduleViewingCardProps {
 
 const ScheduleViewingCard: React.FC<ScheduleViewingCardProps> = ({ property }) => {
   const imgBackground = "https://cdn-icons-png.flaticon.com/512/1067/1067566.png";
-  
+  const { isAuthenticated } = useAuth();
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -35,16 +37,20 @@ const ScheduleViewingCard: React.FC<ScheduleViewingCardProps> = ({ property }) =
     setSubmitting(true);
     setError(null);
 
+    const payload = {
+      propertyId: property.id,
+      date: formData.date,
+      time: formData.timeSlot,
+      name: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      message: `Viewing request for ${property.name}`,
+    };
+
     try {
-      await appointmentsAPI.schedule({
-        propertyId: property.id,
-        date: formData.date,
-        time: formData.timeSlot,
-        name: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        message: `Viewing request for ${property.name}`,
-      });
+      await (isAuthenticated
+        ? appointmentsAPI.scheduleAuth(payload)
+        : appointmentsAPI.schedule(payload));
       setSuccess(true);
       toast.success('Visit Scheduled Successfully!', {
         description: "We'll confirm your appointment within 24 hours."
